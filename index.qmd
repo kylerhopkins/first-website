@@ -1,5 +1,7 @@
 ---
 title: "kyyeee.github.io"
+editor_options: 
+  chunk_output_type: console
 ---
 
 This is a Quarto website.
@@ -15,7 +17,7 @@ Quarto enables you to weave together content and executable code into a finished
 
 When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
 
-```{r eval=FALSE}
+```{r setup_chunk}
 
 # code for IPGTT_tidy_data_corrected
 
@@ -23,11 +25,17 @@ When you click the **Render** button a document will be generated that includes 
 
 library(tidyverse)
 library(see)
-
+library(ggokabeito)
 
 # create file
 
+library(readxl)
+original_IPGTT_tidy_data_corrected <- read_excel("IPGTT_tidy_data_corrected.xlsx")
+
+
 clean2_IPGTT_data <- original_IPGTT_tidy_data_corrected
+
+clean2_IPGTT_data %>% View()
 
 # previous variable names
 
@@ -41,7 +49,7 @@ clean2_IPGTT_data <- original_IPGTT_tidy_data_corrected
 
 ```
 
-```{r eval=FALSE}
+```{r}
 
 # naming variables
 names(clean2_IPGTT_data) <- c("mouse", "body_weight", "test_week", "genotype", "sex", "minutes", "glucose")
@@ -89,9 +97,6 @@ summary(clean2_IPGTT_data)
 ```
 
 ```{r}
-# Generate data dictionary
-data_dictionary <- generate_data_dictionary(clean2_IPGTT_data)
-
 # creating data dictionary text
 data_dictionary <- data.frame(
   Variable = c(
@@ -132,10 +137,6 @@ data_dictionary <- data.frame(
     "67, 100, ..."
   )
 )
-
-print("Data Dictionary:")
-print(data_dictionary)
-
 ```
 
 ## load library and datasets
